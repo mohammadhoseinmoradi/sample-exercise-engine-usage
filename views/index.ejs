@@ -13,16 +13,16 @@
       
       <% if (user) { %>
         <p class="text-xl text-gray-600 mb-8">Hello, <span class="font-semibold text-blue-600"><%= user.username %></span> 👋</p>
-        <a href="/logout" 
+        <a href="/auth/logout" 
            class="inline-block bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-xl font-medium transition">
           Logout
         </a>
       <% } else { %>
         <div class="space-x-4">
-          <a href="/login" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-medium transition">
+          <a href="/auth/login" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-medium transition">
             Login
           </a>
-          <a href="/register" class="inline-block bg-gray-800 hover:bg-gray-900 text-white px-8 py-3 rounded-xl font-medium transition">
+          <a href="/auth/register" class="inline-block bg-gray-800 hover:bg-gray-900 text-white px-8 py-3 rounded-xl font-medium transition">
             Register
           </a>
         </div>
