@@ -4,9 +4,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "bun run server.ts",
-    "build": "bun build ./server.ts --outdir ./dist",
-    "preview": "bun run dist/server.js"
+    "start": "bun run src/main.ts",
+    "build": "bun build ./src/main.ts --outdir ./dist",
+    "preview": "bun run dist/src/main.js"
   },
   "devDependencies": {
     "@types/bcryptjs": "^3.0.0",

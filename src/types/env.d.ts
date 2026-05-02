@@ -12,6 +12,14 @@ declare global {
       DEFAULT_PASS: string;
 
       NODE_ENV?: "development" | "production";
+
+      ACCESS_TOKEN: string;
+      API_GET_MY_EXERCISES: string;
+      API_REDIRECT_CREATE_EXERCISE: string;
+      API_REDIRECT_EXECUTE_EXERCISE: string;
+      API_REDIRECT_MODIFY_EXERCISE: string;
+      API_BACK_URL: string;
+      API_WEBHOOK: string;
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "include": ["**/*.ts", "types/**/*.d.ts"],
+  "include": ["**/*.ts", "src/types/**/*.d.ts"],
   "compilerOptions": {
     // Environment setup & latest features
     "lib": ["ESNext"],

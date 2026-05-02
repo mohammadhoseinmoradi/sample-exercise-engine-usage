@@ -15,9 +15,18 @@ router.get("/execute/:key", (_req, res) => {
   // res.redirect(...)
 });
 
+router.get("/create/:key", (_req, res) => {
+  // redirect to execute
+  // res.redirect(...)
+});
+
 router.get("/modify/:key", (req, res) => {
   // redirect to modify
-  // res.redirect(...)
+  res.redirect(
+    process.env.API_REDIRECT_MODIFY_EXERCISE +
+      "?token=" +
+      process.env.ACCESS_TOKEN,
+  );
 });
 
 router.post("/webhook/:key", (req, _res) => {

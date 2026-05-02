@@ -6,7 +6,7 @@ function initial() {
   // Database path
   const dbPath = process.env.DB_PATH
     ? path.join(__dirname, "..", process.env.DB_PATH)
-    : path.join(__dirname, "../database/database.db");
+    : path.join(__dirname, "../../database/database.db");
   db = new Database(dbPath);
 
   // Create users table
