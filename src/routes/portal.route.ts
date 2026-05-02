@@ -40,18 +40,33 @@ router.get("/execute/:key", (_req, res) => {
     return Response.redirect(targetUrl, 307); // keep method if POST
 });
 
-router.get("/create/:key", (_req, res) => {
-  // redirect to execute
-  // res.redirect(...)
+router.get("/create/:metadata", (_req, res) => {
+
+const baseUrl = process.env.API_REDIRECT_CREATE_EXERCISE!;
+const token = process.env.ACCESS_TOKEN!;
+const url = new URL(baseUrl);
+
+// query params
+url.searchParams.set("token", token);
+url.searchParams.set("metadata", _req.query.metadata as string);
+
+// redirect
+return res.redirect(307, url.toString());
 });
 
-router.get("/modify/:key", (req, res) => {
-  // redirect to modify
-  res.redirect(
-    process.env.API_REDIRECT_MODIFY_EXERCISE +
-      "?token=" +
-      process.env.ACCESS_TOKEN,
-  );
+router.get("/modify/:exerciseKey/:metadata", (req, res) => {
+const baseUrl = process.env.API_REDIRECT_MODIFY_EXERCISE!;
+const token = process.env.ACCESS_TOKEN!;
+const url = new URL(baseUrl);
+baseUrl.replace("{exerciseKey}", req.params.exerciseKey);
+
+
+// query params
+url.searchParams.set("token", token);
+url.searchParams.set("metadata", req.query.metadata as string);
+
+// redirect
+return res.redirect(307, url.toString());
 });
 
 router.post("/webhook/:key", (req, _res) => {
