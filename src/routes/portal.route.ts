@@ -6,10 +6,8 @@ router.get("/get-my-exercises", (_req, res) => {
   res.render("register", { title: "Register", error: null });
 });
 
-router.post("/get-my-exercises", async(_req, res) => {
-const response = await axios.get(
-  process.env.API_GET_MY_EXERCISES,
-  {
+router.post("/get-my-exercises", async (_req, res) => {
+  const response = await axios.get(process.env.API_GET_MY_EXERCISES, {
     params: {
       limit: _req.query.limit,
       offset: _req.query.offset,
@@ -17,27 +15,26 @@ const response = await axios.get(
     headers: {
       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
     },
-  }
-);
+  });
 
-return res.json(response.data);
+  return res.json(response.data);
 });
 
 router.get("/execute/:key", (_req, res) => {
-    const url = new URL(_req.url);
+  const url = new URL(_req.url);
 
-    // example: /exercise?key=abc123
-    const exerciseKey = url.searchParams.get("key");
+  // example: /exercise?key=abc123
+  const exerciseKey = url.searchParams.get("key");
 
-    if (!exerciseKey) {
-      return new Response("Missing exerciseKey", { status: 400 });
-    }
+  if (!exerciseKey) {
+    return new Response("Missing exerciseKey", { status: 400 });
+  }
 
-    const baseUrl = process.env.API_REDIRECT_EXECUTE_EXERCISE!;
+  const baseUrl = process.env.API_REDIRECT_EXECUTE_EXERCISE!;
 
-    const targetUrl = baseUrl.replace("{exerciseKey}", exerciseKey);
+  const targetUrl = baseUrl.replace("{exerciseKey}", exerciseKey);
 
-    return Response.redirect(targetUrl, 307); // keep method if POST
+  return Response.redirect(targetUrl, 307); // keep method if POST
 });
 
 router.get("/create/:key", (_req, res) => {

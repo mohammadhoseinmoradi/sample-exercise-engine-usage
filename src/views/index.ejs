@@ -13,6 +13,7 @@
   <body class="bg-gray-100 min-h-screen">
     <div class="max-w-7xl mx-auto px-6 py-8">
       <!-- Header -->
+       <% if (response && response.length > 0) { %>
       <div class="flex justify-between items-center mb-10 border-b-xs">
         <div>
           <h1 class="text-4xl font-bold text-gray-800">
@@ -23,19 +24,21 @@
           </h1>
         </div>
         <a
-          href="/logout"
+          href="/auth/logout"
           class="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-xl font-medium transition"
         >
           <i class="fas fa-sign-out-alt"></i>
           Logout
         </a>
       </div>
+      <% } %>
 
-      <!-- Exercises Grid -->
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 border-gray-500 border-t-2 p-5"
       >
-        <!-- Card 1 -->
+      <!-- Exercises Grid -->
+       <% if (response && response.length > 0) { %>
+        <% response.forEach(exercise => { %>
         <div
           class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition"
         >
@@ -45,41 +48,57 @@
               alt="Backwards Step And Reach"
               class="w-full h-52 object-cover"
             />
-            <div class="absolute top-3 left-3 flex gap-2">
+            <div class="absolute top-3 left-3 flex flex-col gap-2">
+              <% if(exercise.containAngle) {%>
               <span
-                class="bg-red-500 text-white text-xs font-medium px-3 py-1 rounded-full"
+                class="bg-red-500 text-white text-xs  px-1 py-0 rounded-full"
                 >Angular</span
               >
+              <% }%>
+              <% if(exercise.containDistance) {%>
               <span
-                class="bg-green-500 text-white text-xs font-medium px-3 py-1 rounded-full"
+                class="bg-green-500 text-white text-xs  px-1 py-0 rounded-full"
                 >Distance</span
               >
+              <% }%>
+              <% if(exercise.hasMovie) {%>
+              <span
+                class="bg-yellow-500 text-white text-xs  px-1 py-0 rounded-full"
+                >Has Movie</span
+              >
+              <% }%>
+            </div>
+          </div>
+          <div class="flex justify-between items-center p-2 border-b">
+            <button
+              
+              class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2"
+            >
+              <i class="fas fa-play"></i>
+              Start
+            </button>
+            <div class="flex gap-3 text-gray-400">
+              <i class="fas fa-edit hover:text-blue-500 cursor-pointer"></i>
+              <i class="fas fa-trash hover:text-red-500 cursor-pointer"></i>
             </div>
           </div>
           <div class="p-5">
-            <h3 class="font-semibold text-lg text-gray-800 mb-1">
-              Backwards Step And Reach...
+            <h3 class="font-semibold text-lg text-gray-800 mb-1  overflow-hidden h-15">
+              <%= exercise.label  %>
             </h3>
-            <p class="text-gray-500 text-sm line-clamp-2">
-              No description has been recorded for this exercise.
+            <p class="text-gray-500 text-sm line-clamp-4  ">
+              <%= exercise.description || '-' %>
             </p>
 
-            <div class="flex justify-between items-center mt-6">
-              <button
-                onclick="startExercise(1)"
-                class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2"
-              >
-                <i class="fas fa-play"></i>
-                Start
-              </button>
-              <div class="flex gap-3 text-gray-400">
-                <i class="fas fa-edit hover:text-blue-500 cursor-pointer"></i>
-                <i class="fas fa-trash hover:text-red-500 cursor-pointer"></i>
-              </div>
-            </div>
           </div>
         </div>
-      </div>
+        <% }); %>
+        <% } else { %>
+          <div class="col-span-full text-center py-20">
+            <p class="text-gray-500 text-xl">No exercises found.</p>
+          </div>
+          <% } %>
+        </div>
     </div>
 
     <script>
