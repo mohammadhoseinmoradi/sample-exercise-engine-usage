@@ -4,7 +4,7 @@ declare global {
     interface ProcessEnv {
       PORT?: string;
 
-      APP_SESSION_SECRET: string;
+      SESSION_SECRET: string;
 
       DB_PATH?: string;
 
