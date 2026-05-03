@@ -8,7 +8,7 @@ router.get("/get-my-exercises", (_req, res) => {
 });
 
 router.post("/get-my-exercises", async (_req, res) => {
-  const response = await axios.get(process.env.API_GET_MY_EXERCISES, {
+  const [err,response] = await to (axios.get(process.env.API_GET_MY_EXERCISES, {
     params: {
       limit: _req.query.limit,
       offset: _req.query.offset,
@@ -16,7 +16,10 @@ router.post("/get-my-exercises", async (_req, res) => {
     headers: {
       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
     },
-  });
+  }))
+  if(err){
+    return new Response("Missing get exersice", { status: 400 });
+  }
 
   return res.json(response.data);
 });
@@ -95,7 +98,8 @@ router.get("/exercise-image/:key", async (_req, res) => {
   if (err) {
     return new Response("Missing get image", { status: 400 });
   }
-  return res.json(response);
+  res.setHeader("Content-Type", "image/png");
+  return res
 });
 
 export default router;
