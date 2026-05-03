@@ -7,6 +7,7 @@ import portalRoutes from "./routes/portal.route.js";
 import { initial } from "./utils/db.helper.js";
 import axios from "axios";
 import { to } from "await-to-js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cookieParser());
 
 // Session Configuration
 app.use(
@@ -44,7 +46,7 @@ app.use("/portal/", portalRoutes);
 // Home Route
 app.get("/", async (req, res) => {
   let error = "";
-  if (!req.session.user) {
+  if (!req.user) {
     res.render("login", {
       title: "Login",
       error: null,
@@ -78,7 +80,7 @@ app.get("/", async (req, res) => {
   res.render("index", {
     title: "Home",
     error,
-    user: req.session.user,
+    user: req.user,
     response: response?.data.results,
   });
 });
