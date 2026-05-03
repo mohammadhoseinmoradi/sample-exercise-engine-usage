@@ -81,10 +81,6 @@ router.post("/login", async (req, res) => {
       httpOnly: true,
       secure: false, // true production (https)
     });
-    console.log("User logged in:", user.email);
-    console.log("JWT Token:", token);
-    console.log("cookie set: token",res.cookie);
-    console.log("Redirecting to /portal/get-my-exercises");
 
     return res.redirect("/portal/get-my-exercises");
   } catch (err) {
