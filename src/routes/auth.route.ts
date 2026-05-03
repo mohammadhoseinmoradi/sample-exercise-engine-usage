@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import { db } from "../utils/db.helper";
-
+import jwt from "jsonwebtoken";
 const router = express.Router();
 
 // Register GET
@@ -66,13 +66,27 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    req.session.user = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-    };
+    //  JWT
+    const token = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+      },
+      process.env.JWT_SECRET!,   
+      { expiresIn: "1h" }
+    );
 
-    res.redirect("/");
+    // ✅ cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // true production (https)
+    });
+    console.log("User logged in:", user.email);
+    console.log("JWT Token:", token);
+    console.log("cookie set: token",res.cookie);
+    console.log("Redirecting to /portal/get-my-exercises");
+
+    return res.redirect("/portal/get-my-exercises");
   } catch (err) {
     console.error(err);
     res.render("login", { title: "Login", error: "Login failed" });
@@ -81,9 +95,8 @@ router.post("/login", async (req, res) => {
 
 // Logout
 router.get("/logout", (req, res) => {
-  req.session.destroy(() => {
-    res.redirect("/");
-  });
+  res.clearCookie("token");
+  res.redirect("/");
 });
 
 export default router;

@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-  </head>
-  <body class="bg-gray-100 min-h-screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body class="bg-gray-100 min-h-screen">
     <div class="max-w-7xl mx-auto px-6 py-8">
-      <!-- Header -->
-       <% if (response && response.length > 0) { %>
-      <div class="flex justify-between items-center mb-10 border-b-xs">
-        <div>
-          <h1 class="text-4xl font-bold text-gray-800">
-            Welcome back,
-            <span class="text-blue-600"
-              ><%= user ? user.username : 'Guest' %></span
+        <!-- Header -->
+        <% if (response && response.length > 0) { %>
+            <div class="flex justify-between items-center mb-10 border-b-xs">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-800">
+                        Welcome back,
+                        <span class="text-blue-600"><%= user ? user.username : 'Guest' %></span
             >!
           </h1>
         </div>
@@ -44,7 +42,8 @@
         >
           <div class="relative">
             <img
-              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600"
+            
+              src="<%= `/portal/exercise-image/${exercise.exerciseKey}` %>"
               alt="Backwards Step And Reach"
               class="w-full h-52 object-cover"
             />
@@ -71,15 +70,14 @@
           </div>
           <div class="flex justify-between items-center p-2 border-b">
             <button
-              
+              onclick="startExercise('<%= exercise.exerciseKey %>')"
               class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2"
             >
               <i class="fas fa-play"></i>
               Start
             </button>
             <div class="flex gap-3 text-gray-400">
-              <i class="fas fa-edit hover:text-blue-500 cursor-pointer"></i>
-              <i class="fas fa-trash hover:text-red-500 cursor-pointer"></i>
+              <i onclick="editExercise('<%= exercise.exerciseKey %>')" class="fas fa-edit hover:text-blue-500 cursor-pointer"></i>
             </div>
           </div>
           <div class="p-5">
@@ -103,8 +101,14 @@
 
     <script>
       function startExercise(id) {
-        alert(`Starting exercise ${id}... `);
-        // window.location.href = `/exercise/${id}`;
+        console.log(`Starting exercise`);
+        window.location.href = `/portal/execute/${id}`;
+      }
+
+      function editExercise(id) {
+        console.log(`Edit exercise`);
+        const metadata = {message:"you can set your special metadata"}
+        window.location.href = `/portal/modify/${id}/${metadata}`;
       }
     </script>
   </body>
