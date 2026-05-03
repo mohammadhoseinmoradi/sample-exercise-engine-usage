@@ -170,6 +170,6 @@ bun run dist/src/main.js
 - If login fails, check `JWT_SECRET` and registered email/password values.
 - If the app cannot open the database, validate `DB_PATH` and permissions.
 
-## 📄 Persian Documentation
+## 📄 portal Documentation
 
-The Persian version of this README is available in `README_FA.md`.
+the complate documant of portal in  [portal document](./portal-document.md).

@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🏋️‍♂️ **Exercise Engine** - Hooshtavan
+# 🏋️‍♂️ **Exercise Engine** -
 
-![Banner](https://via.placeholder.com/1200x400/0A2540/00FFAA?text=Exercise+Engine+-+AI+Powered+Fitness+Platform)
+![Banner](./img/logo.png)
 
 **Intelligent Platform for Creating, Executing & Evaluating Sports Exercises**
 
@@ -45,14 +45,6 @@ It empowers **regular users, fitness enthusiasts, physiotherapists, and professi
 | **3D Visual Feedback**        | Interactive animated models                      | ✅     |
 | **User-Friendly Interface**   | Intuitive for all skill levels                   | ✅     |
 | **Powerful API & Webhooks**   | Seamless integration with your platform          | ✅     |
-
----
-
-## 🖼️ Screenshots
-
-![Angular Exercises](https://via.placeholder.com/600x300/1E3A8A/60A5FA?text=Angular+Exercises)
-![Distance & Facial Exercises](https://via.placeholder.com/600x300/1E3A8A/60A5FA?text=Distance+Based+%26+Facial)
-![Multi-Camera Analysis](https://via.placeholder.com/600x300/1E3A8A/60A5FA?text=Multi-Camera+Support)
 
 ---
 
