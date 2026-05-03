@@ -8,7 +8,7 @@ router.get("/get-my-exercises", (_req, res) => {
 });
 
 router.post("/get-my-exercises", async (_req, res) => {
-  const response = await axios.get(process.env.API_GET_MY_EXERCISES, {
+  const [err,response] = await to (axios.get(process.env.API_GET_MY_EXERCISES, {
     params: {
       limit: _req.query.limit,
       offset: _req.query.offset,
@@ -16,7 +16,10 @@ router.post("/get-my-exercises", async (_req, res) => {
     headers: {
       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
     },
-  });
+  }))
+  if(err){
+    return new Response("Missing get exersice", { status: 400 });
+  }
 
   return res.json(response.data);
 });
@@ -70,14 +73,11 @@ router.post("/webhook/:key", (req, _res) => {
   // webhook for
 });
 
-router.get("/exercise-image/:key", async (_req, res) => {
-  const url = new URL(_req.url);
-
-  // example: /exercise?key=abc123
-  const exerciseKey = url.searchParams.get("key");
+router.get("/exercise-image/:key", async (req, res) => {
+  const exerciseKey = req.params.key;
 
   if (!exerciseKey) {
-    return new Response("Missing exerciseKey", { status: 400 });
+    return res.status(400).send("Missing exerciseKey");
   }
 
   const baseUrl = process.env.API_GET_EXERCISE_IMAGE!;
@@ -85,17 +85,19 @@ router.get("/exercise-image/:key", async (_req, res) => {
   const targetUrl = baseUrl.replace("{exerciseKey}", exerciseKey);
   const finalUrl = targetUrl.replace("{poseId}", "0");
 
-  const [err, response] = await to(
-    axios.get(finalUrl, {
+  try {
+    const response = await axios.get(finalUrl, {
       headers: {
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
       },
-    }),
-  );
-  if (err) {
-    return new Response("Missing get image", { status: 400 });
+      responseType: "arraybuffer",
+    });
+
+    res.setHeader("Content-Type", "image/png");
+    return res.send(response.data);
+  } catch (err) {
+    return res.status(400).send("Missing get image");
   }
-  return res.json(response);
 });
 
 export default router;
