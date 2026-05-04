@@ -3,8 +3,9 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       PORT?: string;
+      JWT_SECRET: string;
 
-      APP_SESSION_SECRET: string;
+      SESSION_SECRET: string;
 
       DB_PATH?: string;
 
