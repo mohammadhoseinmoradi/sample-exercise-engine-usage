@@ -44,27 +44,37 @@ Before you run the project, make sure you have Bun installed.
   ```bash
   curl -fsSL https://bun.sh/install | bash
   ```
+  ```bash
+  source ~/.bashrc
+  ```
 - After install, verify with:
   ```bash
   bun --version
   ```
 
 ## �🚀 Quick Start
-
-1. Install Bun dependencies:
+0. clone a git repository project
+   ```bash
+   https://github.com/git-bakhshabadi/sample-exercise-engine-usage.git
+   ```
+1. go to project folder
+   ```
+   cd sample-exercise-engine-usage
+   ```   
+2. Install Bun dependencies:
    ```bash
    bun install
    ```
-2. Create a `.env` file from `.env.example`:
+3. Create a `.env` file from `.env.example`:
    ```bash
    cp .env.example .env
    ```
-3. Update `.env` with your actual token and API endpoints.
-4. Run the app:
+4. Update `.env` with your actual token and API endpoints.
+5. Run the app:
    ```bash
    bun run src/main.ts
    ```
-5. Open the portal in your browser:
+6. Open the portal in your browser:
    ```
    http://localhost:3000
    ```
